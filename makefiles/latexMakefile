@@ -1,0 +1,13 @@
+.PHONY: docname.pdf all clean
+
+all : docname.pdf
+
+docname.pdf : docname.pdf | output_files
+	latexmk -pdf -jobname=output_files/$(basename $@) -pdflatex="xelatex" -use-make $(basename  $@).tex
+	cp output_files/$(basename $@) .
+
+output_files :
+	mkdir -p $@
+
+clean :
+	latexmk -CA
